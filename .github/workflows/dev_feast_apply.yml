@@ -20,7 +20,9 @@ jobs:
       # Run `feast apply`
       - uses: actions/checkout@v2
       - name: Install feast
-        run: pip install "feast[aws]"
+        run: |
+          pip install --user --upgrade setuptools
+          pip install "feast[aws]"
       - name: Run feast apply
         run: |
           cd dev

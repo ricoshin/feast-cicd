@@ -1,4 +1,4 @@
-name: Feast plan (AWS)
+name: Feast plan
 
 on: 
   pull_request:
@@ -21,7 +21,9 @@ jobs:
       # Run `feast plan`
       - uses: actions/checkout@v2
       - name: Install feast
-        run: pip install "feast[aws]"
+        run: |
+          pip install --user --upgrade setuptools
+          pip install "feast[aws]"
       - name: Capture `feast plan` in a variable
         id: feast_plan
         env:
