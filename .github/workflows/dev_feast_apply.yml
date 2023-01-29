@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install feast
         run: |
-          pip install "feast=="$FEAST_VERSION
+          pip install "feast[aws]=="$FEAST_VERSION
       - name: Run feast apply
         run: |
           cd dev
