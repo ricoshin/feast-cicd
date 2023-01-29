@@ -49,7 +49,6 @@ jobs:
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
-        if: ${{ steps.feast_plan.outputs.FEAST_OUTPUT }}
         with:
           token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
