@@ -33,10 +33,6 @@ jobs:
         run: pip install "feast[aws]=="$FEAST_VERSION
       - name: Capture `feast plan` in a variable
         id: feast_plan
-        env:
-          FEAST_USAGE: "False"
-          FEAST_FORCE_USAGE_UUID: None
-          IS_TEST: "True"
         run: |
           echo 'FEAST_OUTPUT<<EOF' >> $GITHUB_OUTPUT
           cd dev; feast plan >> $GITHUB_OUTPUT
