@@ -33,7 +33,7 @@ jobs:
         with:
           token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: "Run `feast plan` "$ENV_ZONE
+          body: "Run `feast plan` (${{ env.ENV_ZONE }})"
 
       # Run `feast plan`
       - uses: actions/checkout@v2
