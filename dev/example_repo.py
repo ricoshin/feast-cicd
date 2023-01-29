@@ -99,41 +99,41 @@ driver_stats_push_source = PushSource(
     batch_source=driver_stats_source,
 )
 
-# Defines a slightly modified version of the feature view from above, where the source
-# has been changed to the push source. This allows fresh features to be directly pushed
-# to the online store for this feature view.
-driver_stats_fresh_fv = FeatureView(
-    name="driver_hourly_stats_fresh",
-    entities=[driver],
-    ttl=timedelta(days=1),
-    schema=[
-        Field(name="conv_rate", dtype=Float32),
-        Field(name="acc_rate", dtype=Float32),
-        Field(name="avg_daily_trips", dtype=Int64),
-    ],
-    online=True,
-    source=driver_stats_push_source,  # Changed from above
-    tags={"team": "driver_performance"},
-)
+# # Defines a slightly modified version of the feature view from above, where the source
+# # has been changed to the push source. This allows fresh features to be directly pushed
+# # to the online store for this feature view.
+# driver_stats_fresh_fv = FeatureView(
+#     name="driver_hourly_stats_fresh",
+#     entities=[driver],
+#     ttl=timedelta(days=1),
+#     schema=[
+#         Field(name="conv_rate", dtype=Float32),
+#         Field(name="acc_rate", dtype=Float32),
+#         Field(name="avg_daily_trips", dtype=Int64),
+#     ],
+#     online=True,
+#     source=driver_stats_push_source,  # Changed from above
+#     tags={"team": "driver_performance"},
+# )
 
 
-# Define an on demand feature view which can generate new features based on
-# existing feature views and RequestSource features
-@on_demand_feature_view(
-    sources=[driver_stats_fresh_fv, input_request],  # relies on fresh version of FV
-    schema=[
-        Field(name="conv_rate_plus_val1", dtype=Float64),
-        Field(name="conv_rate_plus_val2", dtype=Float64),
-    ],
-)
-def transformed_conv_rate_fresh(inputs: pd.DataFrame) -> pd.DataFrame:
-    df = pd.DataFrame()
-    df["conv_rate_plus_val1"] = inputs["conv_rate"] + inputs["val_to_add"]
-    df["conv_rate_plus_val2"] = inputs["conv_rate"] + inputs["val_to_add_2"]
-    return df
+# # Define an on demand feature view which can generate new features based on
+# # existing feature views and RequestSource features
+# @on_demand_feature_view(
+#     sources=[driver_stats_fresh_fv, input_request],  # relies on fresh version of FV
+#     schema=[
+#         Field(name="conv_rate_plus_val1", dtype=Float64),
+#         Field(name="conv_rate_plus_val2", dtype=Float64),
+#     ],
+# )
+# def transformed_conv_rate_fresh(inputs: pd.DataFrame) -> pd.DataFrame:
+#     df = pd.DataFrame()
+#     df["conv_rate_plus_val1"] = inputs["conv_rate"] + inputs["val_to_add"]
+#     df["conv_rate_plus_val2"] = inputs["conv_rate"] + inputs["val_to_add_2"]
+#     return df
 
 
-driver_activity_v3 = FeatureService(
-    name="driver_activity_v3",
-    features=[driver_stats_fresh_fv, transformed_conv_rate_fresh],
-)
+# driver_activity_v3 = FeatureService(
+#     name="driver_activity_v3",
+#     features=[driver_stats_fresh_fv, transformed_conv_rate_fresh],
+# )
