@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - dev/**
+      - stg/**
 
 jobs:
   feast_apply:
