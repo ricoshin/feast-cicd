@@ -25,7 +25,9 @@ driver = Entity(name="driver", join_keys=["driver_id"])
 # for more info.
 driver_stats_source = FileSource(
     name="driver_hourly_stats_source",
-    path="data/driver_stats.parquet",
+    path="s3://feast-workshop-aidenshin/dev/driver_stats.parquet",  # TODO: Replace with your bucket
+    s3_endpoint_override="http://s3.us-west-2.amazonaws.com",  # Needed since s3fs defaults to us-east-1
+    owner="rico.shin@gmail.com",
     timestamp_field="event_timestamp",
     created_timestamp_column="created",
 )
