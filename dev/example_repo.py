@@ -138,4 +138,4 @@ def transformed_conv_rate_fresh(inputs: pd.DataFrame) -> pd.DataFrame:
 driver_activity_v3 = FeatureService(
     name="driver_activity_v3",
     features=[driver_stats_fresh_fv, transformed_conv_rate_fresh],
-# )
+)
