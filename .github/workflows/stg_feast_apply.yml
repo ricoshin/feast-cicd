@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FEAST_VERSION: "0.28.0"
+      ENV_ZONE: stg
     
     steps:
       - name: Setup Python
@@ -34,6 +35,12 @@ jobs:
         run: |
           pip install "feast[aws]=="$FEAST_VERSION
       - name: Run feast apply
-        run: |
-          cd dev
-          feast apply
+        run: cd $ENV_ZONE; feast apply
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: ${{ steps.feast_plan.outputs.FEAST_OUTPUT }}
+        with:
+          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: "Run `feast apply` (${{ env.ENV_ZONE }})"
