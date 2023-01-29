@@ -47,10 +47,3 @@ jobs:
           SLACK_MSG_AUTHOR: aidenshin
           SLACK_TITLE: Run `feast apply` (${{ env.ENV_ZONE }})
           SLACK_MESSAGE: Feature store has been deployed successfully.
-
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: "### Run `feast apply` (${{ env.ENV_ZONE }})"
