@@ -11,6 +11,7 @@ jobs:
   feast_plan:
     runs-on: ubuntu-latest
     env:
+      ENV_ZONE: dev
       FEAST_VERSION: "0.28.0"
     steps:
       - name: Setup Python
@@ -27,6 +28,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: "Runing `feast plan` ($ENV_ZONE)"
+
       # Run `feast plan`
       - uses: actions/checkout@v2
       - name: Install feast
@@ -35,7 +43,7 @@ jobs:
         id: feast_plan
         run: |
           echo 'FEAST_OUTPUT<<EOF' >> $GITHUB_OUTPUT
-          cd dev; feast plan >> $GITHUB_OUTPUT
+          cd $ENV_ZONE; feast plan >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       # Post a comment on the PR with the results of `feast plan`
