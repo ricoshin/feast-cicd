@@ -11,7 +11,7 @@ jobs:
   feast_apply:
     runs-on: ubuntu-latest
     env:
-      FEAST_VERSION: "0.11.0"
+      FEAST_VERSION: "0.28.0"
     steps:
       - name: Setup Python
         id: setup-python
