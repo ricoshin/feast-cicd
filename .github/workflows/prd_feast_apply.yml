@@ -32,8 +32,7 @@ jobs:
       # Run `feast apply`
       - uses: actions/checkout@v2
       - name: Install feast
-        run: |
-          pip install "feast[aws]=="$FEAST_VERSION
+        run: pip install "feast[aws]=="$FEAST_VERSION
       - name: Run feast apply
         run: cd $ENV_ZONE; feast apply
 
