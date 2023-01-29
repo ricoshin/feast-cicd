@@ -10,6 +10,8 @@ on:
 jobs:
   feast_plan:
     runs-on: ubuntu-latest
+    env:
+      FEAST_VERSION: "0.11.0"
     steps:
       - name: Setup Python
         id: setup-python
@@ -22,8 +24,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install feast
         run: |
-          pip install --user --upgrade setuptools
-          pip install "feast[aws]"
+          pip install "feast=="$FEAST_VERSION
       - name: Capture `feast plan` in a variable
         id: feast_plan
         env:
