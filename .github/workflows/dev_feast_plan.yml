@@ -32,7 +32,7 @@ jobs:
           FEAST_FORCE_USAGE_UUID: None
           IS_TEST: "True"
         run: |
-          echo 'FEAST_OUTPUT<<EOF' >> $GITHUB_OUTPUT
+          echo 'FEAST_OUTPUT <<EOF' >> $GITHUB_OUTPUT
           cd dev; feast plan >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
