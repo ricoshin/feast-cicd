@@ -28,13 +28,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: "Run `feast plan` (${{ env.ENV_ZONE }})"
-
       # Run `feast plan`
       - uses: actions/checkout@v2
       - name: Install feast
@@ -54,5 +47,6 @@ jobs:
           token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
+            ### Run `feast plan` (${{ env.ENV_ZONE }})
             ${{ steps.feast_plan.outputs.FEAST_OUTPUT }}
   
