@@ -34,7 +34,6 @@ jobs:
           echo 'FEAST_OUTPUT<<EOF' >> $GITHUB_OUTPUT
           cd dev; feast plan >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
 
       # Post a comment on the PR with the results of `feast plan`
       - name: Create comment
