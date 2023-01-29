@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - prd/**
+      - .github/workflows/prd*
 
 jobs:
   feast_plan:

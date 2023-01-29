@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - stg/**
+      - .github/workflows/stg*
 
 jobs:
   feast_apply:
@@ -28,6 +29,17 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
+
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: private-gi-pa3-noti-test
+          SLACK_USERNAME: feast-cicd
+          SLACK_MSG_AUTHOR: aidenshin
+          SLACK_TITLE: Run `feast apply` (${{ env.ENV_ZONE }})
+          SLACK_MESSAGE: Feature store has been deployed successfully.
       
       # Run `feast apply`
       - uses: actions/checkout@v2
@@ -38,7 +50,6 @@ jobs:
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
-        if: ${{ steps.feast_plan.outputs.FEAST_OUTPUT }}
         with:
           token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
