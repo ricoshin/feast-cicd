@@ -3,6 +3,8 @@ project: quickstart
 registry: s3://feast-workshop-aidenshin/dev/registry.db
 # The provider primarily specifies default offline / online stores & storing the registry in a given cloud
 provider: aws
+offline_store:
+  type: file
 online_store:
     type: sqlite
     path: s3://feast-workshop-aidenshin/dev/online_store.db
