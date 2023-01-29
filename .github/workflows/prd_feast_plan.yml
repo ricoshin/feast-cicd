@@ -48,5 +48,5 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ${{ steps.feast_plan.outputs.FEAST_OUTPUT }}
-            "Run `feast plan` (${{ env.ENV_ZONE }})"
+            ### Run `feast plan` (${{ env.ENV_ZONE }})
   
