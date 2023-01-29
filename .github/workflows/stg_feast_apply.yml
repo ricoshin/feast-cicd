@@ -1,4 +1,4 @@
-name: Feast apply
+name: Feast apply (stg)
 
 on: 
   push:
