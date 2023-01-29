@@ -5,7 +5,5 @@ registry: s3://feast-workshop-aidenshin/dev/registry.db
 provider: aws
 offline_store:
   type: file
-online_store:
-    type: sqlite
-    path: s3://feast-workshop-aidenshin/dev/online_store.db
+online_store: null
 entity_key_serialization_version: 2
